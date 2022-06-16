@@ -9,13 +9,18 @@
         @focus="isFocus"
         @blur="isBlur"
       />
-      <component :is="PlaseholderTop" v-if="optional?.label" :model="plaseholderModel" />
+      <component
+        :is="PlaceholderTop"
+        v-if="optional?.label"
+        :model="placeholderModel"
+      />
       <component :is="CheckedSvg" v-if="isShowChecker" />
       <component :is="FocusIllmination" v-if="isShowIlluminationFocus" />
     </div>
     <div class="field__content">
       <!-- Внутри этого блока вставлять снаружи инпута -->
-      <component :is="PatternListInput"
+      <component
+        :is="PatternListInput"
         v-if="optional?.validity"
         :model="patternListInputModel"
         @isValid="chackeValid"
@@ -30,19 +35,19 @@ import { computed, reactive, watch } from 'vue';
 import {
   FieldOptional,
   BaseInputModel,
-  PlaseholderModel,
+  PlaceholderModel,
   PatternListModel,
 } from './interfaces';
-import PlaseholderTop from './OptionalComponents/PlaceholderTop.vue';
-import CheckedInput from './OptionalComponents/Chackeds/CheckedInput.vue';
+import PlaceholderTop from './OptionalComponents/Placeholders/PlaceholderTop.vue';
 import PatternListInput from './OptionalComponents/PatternListInput.vue';
 import FocusIllmination from './OptionalComponents/FocusIllmination.vue';
 import CheckedSvg from './OptionalComponents/Chackeds/CheckedSvg.vue';
+import Placeholder from './OptionalComponents/Placeholders/Placeholder.vue';
 
 const state = reactive({
   isFocus: false,
   isError: false,
-  isChacked: false,
+  isChecked: false,
 });
 
 const props = defineProps<{
@@ -74,12 +79,12 @@ function isBlur() {
 }
 
 function chackeValid(isValid: boolean) {
-  state.isChacked = isValid;
+  state.isChecked = isValid;
   state.isError = !isValid;
 }
 
 const isShowChecker = computed(
-  () => props.optional?.isChecked && state.isChacked
+  () => props.optional?.isChecked && state.isChecked
 );
 
 const isShowIlluminationFocus = computed(
@@ -96,7 +101,7 @@ const baseInputModel: BaseInputModel = reactive({
   autofocus: !!props.autofocus,
 });
 
-const plaseholderModel: PlaseholderModel = reactive({
+const placeholderModel: PlaceholderModel = reactive({
   text: props.optional?.label || '',
   for: props.optional?.id || 'null',
   isHide: isHidePlaseholder,
@@ -109,7 +114,7 @@ const patternListInputModel: PatternListModel = reactive({
 });
 
 watch(state, () => {
-  console.log(baseInputModel.isError, state.isError)
+  console.log(baseInputModel.isError, state.isError);
 });
 </script>
 

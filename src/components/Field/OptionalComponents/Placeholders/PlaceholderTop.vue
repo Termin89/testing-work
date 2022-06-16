@@ -1,4 +1,3 @@
-
 <template>
   <label
     class="field__placeholder-top --global-center-content"
@@ -9,19 +8,15 @@
 </template>
 
 <script setup lang="ts">
-import { PlaseholderModel } from '../interfaces';
+import { PlaceholderModel } from '../../interfaces';
 const props = defineProps<{
-  model: PlaseholderModel
+  model: PlaceholderModel;
 }>();
 </script>
 
 <style scoped lang="scss">
 .field {
-  display: block;
-  position: relative;
-  font-size: 16px;
   &__placeholder-top {
-    position: absolute;
     left: 10px;
     font-size: 22px;
     transition: top 0.2s, font-size 0.3s, transform 0.2s;
