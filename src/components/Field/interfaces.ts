@@ -12,7 +12,8 @@ export interface PatternInput {
 
 export interface PatternListModel {
   patterns: Array<PatternInput> | undefined,
-  value: string
+  value: string,
+  isCheck: boolean
 }
 
 export interface BaseInputModel {

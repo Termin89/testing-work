@@ -53,11 +53,13 @@ const value = computed({
 
 function isFocus() {
   state.isFocus = true;
+  patternListInputModel.isCheck = false
 }
 
 function isBlur() {
   patternListInputModel.value = props.modelValue;
   state.isFocus = false;
+  patternListInputModel.isCheck = true
 }
 
 function chackeValid(isValid: boolean) {
@@ -87,7 +89,8 @@ const labelInputModel: LabelInputModel = reactive({
 
 const patternListInputModel: PatternListModel = reactive({
   patterns: props.optional?.validity,
-  value: ''
+  value: '',
+  isCheck: false
 })
 
 watch(state, () => {
