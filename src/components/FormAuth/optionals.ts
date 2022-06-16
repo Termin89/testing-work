@@ -15,5 +15,6 @@ export const optionalInputs = {
     label: 'eMail',
     validity: [{ pattern: validatePatterns.mail, msg: 'email не верный' }],
     isChecked: true,
+    isIlluminationFocus: true
   },
 };

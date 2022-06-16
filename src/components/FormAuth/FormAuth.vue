@@ -19,7 +19,7 @@ let email = ref('');
 
 <style scoped>
 .form-auth {
-  margin: 20px auto 0
+  margin: 20px auto 0;
 }
 .form-auth__field {
   margin-bottom: 20px

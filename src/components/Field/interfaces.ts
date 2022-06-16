@@ -1,8 +1,9 @@
 export interface FieldOptional {
   label?: string,
   id: string,
-  validity?: Array<PatternInput>
-  isChecked?: boolean
+  validity?: Array<PatternInput>,
+  isChecked?: boolean,
+  isIlluminationFocus?: boolean
 }
 
 export interface PatternInput {
