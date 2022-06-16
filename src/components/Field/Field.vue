@@ -10,7 +10,7 @@
         @blur="isBlur"
       />
       <LabelInput v-if="optional?.label" v-bind="labelInputModel" />
-      <CheckedInput v-if="isShowChecked" />
+      <component :is="CheckedSvg" v-if="isShowChecked" />
       <FocusIllmination v-if="isShowIlluminationFocus" />
     </div>
     <div class="field__content">
@@ -37,6 +37,7 @@ import LabelInput from './OptionalComponents/LabelInput.vue';
 import CheckedInput from './OptionalComponents/CheckedInput.vue';
 import PatternListInput from './OptionalComponents/PatternListInput.vue';
 import FocusIllmination from './OptionalComponents/FocusIllmination.vue';
+import CheckedSvg from './OptionalComponents/CheckedSvg.vue';
 
 const state = reactive({
   isFocus: false,
