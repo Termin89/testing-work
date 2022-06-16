@@ -3,19 +3,19 @@
     <div class="field__input-block">
       <!-- Внутри этого блока вставлять элементы которые будут внутри инпута -->
       <BaseInput
-        v-bind="baseInputModel"
+        :model="baseInputModel"
         v-model="value"
         class="field__input"
         @focus="isFocus"
         @blur="isBlur"
       />
-      <LabelInput v-if="optional?.label" v-bind="labelInputModel" />
-      <component :is="CheckedSvg" v-if="isShowChecked" />
-      <FocusIllmination v-if="isShowIlluminationFocus" />
+      <component :is="PlaseholderTop" v-if="optional?.label" :model="plaseholderModel" />
+      <component :is="CheckedSvg" v-if="isShowChecker" />
+      <component :is="FocusIllmination" v-if="isShowIlluminationFocus" />
     </div>
     <div class="field__content">
       <!-- Внутри этого блока вставлять снаружи инпута -->
-      <PatternListInput
+      <component :is="PatternListInput"
         v-if="optional?.validity"
         :model="patternListInputModel"
         @isValid="chackeValid"
@@ -30,14 +30,14 @@ import { computed, reactive, watch } from 'vue';
 import {
   FieldOptional,
   BaseInputModel,
-  LabelInputModel,
+  PlaseholderModel,
   PatternListModel,
 } from './interfaces';
-import LabelInput from './OptionalComponents/LabelInput.vue';
-import CheckedInput from './OptionalComponents/CheckedInput.vue';
+import PlaseholderTop from './OptionalComponents/PlaceholderTop.vue';
+import CheckedInput from './OptionalComponents/Chackeds/CheckedInput.vue';
 import PatternListInput from './OptionalComponents/PatternListInput.vue';
 import FocusIllmination from './OptionalComponents/FocusIllmination.vue';
-import CheckedSvg from './OptionalComponents/CheckedSvg.vue';
+import CheckedSvg from './OptionalComponents/Chackeds/CheckedSvg.vue';
 
 const state = reactive({
   isFocus: false,
@@ -78,7 +78,7 @@ function chackeValid(isValid: boolean) {
   state.isError = !isValid;
 }
 
-const isShowChecked = computed(
+const isShowChecker = computed(
   () => props.optional?.isChecked && state.isChacked
 );
 
@@ -86,7 +86,7 @@ const isShowIlluminationFocus = computed(
   () => state.isFocus && props.optional?.isIlluminationFocus
 );
 
-const isHideLabel = computed(() => {
+const isHidePlaseholder = computed(() => {
   return !!props.modelValue || state.isFocus;
 });
 
@@ -96,10 +96,10 @@ const baseInputModel: BaseInputModel = reactive({
   autofocus: !!props.autofocus,
 });
 
-const labelInputModel: LabelInputModel = reactive({
+const plaseholderModel: PlaseholderModel = reactive({
   text: props.optional?.label || '',
   for: props.optional?.id || 'null',
-  isPositionTopLabel: isHideLabel,
+  isHide: isHidePlaseholder,
 });
 
 const patternListInputModel: PatternListModel = reactive({
@@ -109,7 +109,7 @@ const patternListInputModel: PatternListModel = reactive({
 });
 
 watch(state, () => {
-  baseInputModel.isError = state.isError;
+  console.log(baseInputModel.isError, state.isError)
 });
 </script>
 

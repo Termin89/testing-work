@@ -1,15 +1,17 @@
+
 <template>
   <label
-    class="field__label --global-center-content"
-    :class="{ '__position-top': isPositionTopLabel }"
-    >{{ text }}
+    class="field__placeholder-top --global-center-content"
+    :class="{ '__position-top': model.isHide }"
+    :for="model.for"
+    >{{ model.text }}
   </label>
 </template>
 
 <script setup lang="ts">
+import { PlaseholderModel } from '../interfaces';
 const props = defineProps<{
-  text?: string;
-  isPositionTopLabel: boolean;
+  model: PlaseholderModel
 }>();
 </script>
 
@@ -18,7 +20,7 @@ const props = defineProps<{
   display: block;
   position: relative;
   font-size: 16px;
-  &__label {
+  &__placeholder-top {
     position: absolute;
     left: 10px;
     font-size: 22px;

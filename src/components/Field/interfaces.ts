@@ -23,8 +23,8 @@ export interface BaseInputModel {
   autofocus: boolean
 }
 
-export interface LabelInputModel {
+export interface PlaseholderModel {
   text: string,
   for: string,
-  isPositionTopLabel: boolean
+  isHide: boolean
 }

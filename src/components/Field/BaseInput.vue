@@ -1,16 +1,20 @@
 <template>
   <input
     v-model="value"
-    :id="id"
+    :id="model.id"
     class="base-input"
-    :class="{ __error: isError }"
+    :class="{ __error: model.isError }"
     type="text"
   />
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
-const props = defineProps(['modelValue', 'id', 'isError']);
+import { BaseInputModel } from './interfaces';
+const props = defineProps<{
+  model: BaseInputModel,
+  modelValue: string
+}>();
 const emits = defineEmits(['update:modelValue']);
 
 const value = computed({
