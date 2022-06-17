@@ -42,7 +42,6 @@ import PlaceholderTop from './OptionalComponents/Placeholders/PlaceholderTop.vue
 import PatternListInput from './OptionalComponents/PatternListInput.vue';
 import FocusIllmination from './OptionalComponents/FocusIllmination.vue';
 import CheckedSvg from './OptionalComponents/Chackeds/CheckedSvg.vue';
-import Placeholder from './OptionalComponents/Placeholders/Placeholder.vue';
 
 const state = reactive({
   isFocus: false,
