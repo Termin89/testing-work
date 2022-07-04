@@ -1,6 +1,7 @@
 export enum StatesPlaceholder {
   'show',
-  'hide'
+  'hide',
+  'alum'
 }
 
 export interface PlaceholderModel {
