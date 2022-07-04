@@ -31,7 +31,7 @@
 
 <script setup lang="ts">
 import BaseInput from './BaseInput.vue';
-import { computed, reactive, watch } from 'vue';
+import { computed, reactive } from 'vue';
 import {
   FieldOptional,
   BaseInputModel,
@@ -42,12 +42,9 @@ import PlaceholderTop from './OptionalComponents/Placeholders/PlaceholderTop.vue
 import PatternListInput from './OptionalComponents/PatternListInput.vue';
 import FocusIllmination from './OptionalComponents/FocusIllmination.vue';
 import CheckedSvg from './OptionalComponents/Chackeds/CheckedSvg.vue';
+import { useState, useVModelValue, useBaseInputModel } from './useEffects';
 
-const state = reactive({
-  isFocus: false,
-  isError: false,
-  isChecked: false,
-});
+const state = useState()
 
 const props = defineProps<{
   modelValue: string;
@@ -57,14 +54,7 @@ const props = defineProps<{
 
 const emits = defineEmits(['update:modelValue']);
 
-const value = computed({
-  get(): string {
-    return props.modelValue;
-  },
-  set(value: string) {
-    emits('update:modelValue', value);
-  },
-});
+const value = useVModelValue(props.modelValue, emits)
 
 function isFocus() {
   state.isFocus = true;
@@ -94,11 +84,11 @@ const isHidePlaseholder = computed(() => {
   return !!props.modelValue || state.isFocus;
 });
 
-const baseInputModel: BaseInputModel = reactive({
+const baseInputModel: BaseInputModel = useBaseInputModel({
   id: props.optional?.id || 'null',
   isError: false,
   autofocus: !!props.autofocus,
-});
+})
 
 const placeholderModel: PlaceholderModel = reactive({
   text: props.optional?.label || '',
@@ -110,10 +100,6 @@ const patternListInputModel: PatternListModel = reactive({
   patterns: props.optional?.validity,
   value: '',
   isCheck: false,
-});
-
-watch(state, () => {
-  console.log(baseInputModel.isError, state.isError);
 });
 </script>
 
