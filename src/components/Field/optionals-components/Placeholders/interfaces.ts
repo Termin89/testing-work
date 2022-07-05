@@ -6,5 +6,5 @@ export enum StatesPlaceholder {
 
 export interface PlaceholderModel {
   text: string,
-  state: StatesPlaceholder
+  state: StatesPlaceholder | undefined
 }

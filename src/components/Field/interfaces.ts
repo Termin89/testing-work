@@ -8,13 +8,14 @@ export enum StatesField {
 
 export interface FieldModel {
   id: string,
+  defaultValue: string
   optionals?: {
     placeholder?: PlaceholderModel
   }
 }
 
 export interface ParamPlaceholderModelforUse {
-  model: PlaceholderModel,
+  model: PlaceholderModel | undefined,
   state: Ref<StatesField>,
   value: WritableComputedRef<string | undefined>
 }

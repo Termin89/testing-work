@@ -1,20 +1,33 @@
-import validatePatterns from '../../config/validate-patterns';
-
-export const optionalInputs = {
+import { FieldModel } from '../Field/interfaces';
+export const inputs:{ [key: string]: FieldModel } = {
+  email: {
+    id: "email",
+    defaultValue: '',
+    optionals: {
+      placeholder: {
+        text: "Электронная почта",
+        state: undefined
+      }
+    }
+  },
   fullName: {
-    id: 'full-name',
-    label: 'Фамилия Имя Отчество',
+    id: "fullName",
+    defaultValue: '',
+    optionals: {
+      placeholder: {
+        text: "Фамилия Имя Отчество",
+        state: undefined
+      }
+    }
   },
   passport: {
-    id: 'passport',
-    label: 'Ввелите пасспорт',
-    validity: [{ pattern: validatePatterns.passport, msg: 'Неверный формат пасспорта' }],
-  },
-  email: {
-    id: 'email',
-    label: 'eMail',
-    validity: [{ pattern: validatePatterns.mail, msg: 'email не верный' }],
-    isChecked: true,
-    isIlluminationFocus: true
-  },
-};
+    id: "passport",
+    defaultValue: '',
+    optionals: {
+      placeholder: {
+        text: "Номер Паспорта",
+        state: undefined
+      }
+    }
+  }
+}

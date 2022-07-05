@@ -1,14 +1,15 @@
 <template>
   <form class="form-auth">
-    <Field v-model="email"/>
+    <Field v-for="(value, key) in fieldRefs" :key="key" v-model="value.defaultValue" :optionals="value"/>
   </form>
 </template>
 
 <script setup lang="ts">
 import Field from '../Field';
-import { ref, watch } from 'vue';
+import { reactive } from 'vue';
+import { inputs } from './optionals';
 
-const email = ref('')
+const fieldRefs = reactive(inputs)
 
 </script>
 

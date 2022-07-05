@@ -1,10 +1,10 @@
 
 <template>
   <div class="field-input-zone _hide">
-    <input class="field" type="text" v-model="value"
+    <input :id="optionals.id" class="field" type="text" v-model="value"
       @focus="isFocus"
       @blur="isBlur"/>
-    <component :is=PlaceholderTopHide :model="placeholderModel"/>
+    <component :is=PlaceholderTopHide :model="placeholderModel" v-if="placeholderModel"/>
   </div>
 </template>
 
@@ -14,20 +14,20 @@ import PlaceholderTopHide from './optionals-components/Placeholders/PlaceholderT
 import { PlaceholderModel, StatesPlaceholder } from './optionals-components/Placeholders/interfaces';
 import { ref, Ref} from 'vue';
 import PlaceholderOpacityHide from './optionals-components/Placeholders/PlaceholderOpacityHide.vue';
-import { StatesField } from './interfaces';
+import { StatesField, FieldModel } from './interfaces';
 import { usePlaceholderManage } from './useEffect/usePlaseholderManage';
 
 const state: Ref<StatesField> = ref<StatesField>(StatesField.blur)
-const props = defineProps(['modelValue'])
+const props = defineProps<{
+  modelValue: string | undefined,
+  optionals: FieldModel 
+}>()
 const emits = defineEmits(['update:modelValue'])
 
-const placeholder = {
-  text: "Email",
-  state: StatesPlaceholder.show
-}
+const placeholder = props.optionals.optionals?.placeholder
 
 const value = useVModel(props, emits)
-const placeholderModel: PlaceholderModel = usePlaceholderManage({model: placeholder, state, value})
+const placeholderModel: PlaceholderModel | undefined = usePlaceholderManage({model: placeholder, state, value})
 
 
 function isFocus() {
