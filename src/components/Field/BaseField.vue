@@ -1,8 +1,10 @@
 
 <template>
   <div class="field-input-zone _hide">
-    <input class="field" type="text" v-model="value"/>
-    <component :is=PlaceholderOpacityHide :model="placeholderModel"/>
+    <input class="field" type="text" v-model="value"
+      @focus="isFocus"
+      @blur="isBlur"/>
+    <component :is=PlaceholderTopHide :model="placeholderModel"/>
   </div>
 </template>
 
@@ -10,18 +12,31 @@
 import { useVModel } from './useEffect/useVModel';
 import PlaceholderTopHide from './optionals-components/Placeholders/PlaceholderTopHide.vue';
 import { PlaceholderModel, StatesPlaceholder } from './optionals-components/Placeholders/interfaces';
-import { reactive } from 'vue';
+import { ref, Ref} from 'vue';
 import PlaceholderOpacityHide from './optionals-components/Placeholders/PlaceholderOpacityHide.vue';
+import { StatesField } from './interfaces';
+import { usePlaceholderManage } from './useEffect/usePlaseholderManage';
 
+const state: Ref<StatesField> = ref<StatesField>(StatesField.blur)
 const props = defineProps(['modelValue'])
 const emits = defineEmits(['update:modelValue'])
 
-const value = useVModel(props, emits)
-
-const placeholderModel: PlaceholderModel = reactive({
+const placeholder = {
   text: "Email",
-  state: StatesPlaceholder.hide
-})
+  state: StatesPlaceholder.show
+}
+
+const value = useVModel(props, emits)
+const placeholderModel: PlaceholderModel = usePlaceholderManage({model: placeholder, state, value})
+
+
+function isFocus() {
+  state.value = StatesField.focus
+}
+
+function isBlur() {
+  state.value = StatesField.blur
+}
 
 </script>
 

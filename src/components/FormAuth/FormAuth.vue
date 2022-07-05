@@ -10,7 +10,6 @@ import { ref, watch } from 'vue';
 
 const email = ref('')
 
-watch(email, () => console.log(email))
 </script>
 
 <style scoped>
